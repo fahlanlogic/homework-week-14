@@ -1,31 +1,32 @@
-import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
-import { redirect } from "next/dist/server/api-utils";
+import prisma from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
-const prisma = new PrismaClient();
-
-export async function signUp(formData) {
-  const rawData = {
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-
-  const { name, email, password } = rawData.data;
-  const hashedPassword = await bcrypt.hashSync(password, 10);
-
+export async function POST(request) {
   try {
-    const data = await prisma.user.create({
+    const body = await request.json();
+    const { name, email, password } = body;
+    const hashPassword = await bcrypt.hashSync(password, 10);
+
+    if (!email || !password) throw { name: "BadRequest" };
+
+    await prisma.user.create({
       data: {
         name,
         email,
-        password: hashedPassword,
+        password: hashPassword,
       },
     });
-    NextResponse.json(data);
-    redirect("/sign-in");
+    return NextResponse.json({
+      message: "Sign Up Succesfully",
+    });
   } catch (error) {
-    console.log(error);
+    if (error.name === "BadRequest") {
+      return NextResponse.json({ status: 400, message: "Bad Request" });
+    }
+    return NextResponse.json({
+      status: 409,
+      message: "User already exist",
+    });
   }
 }

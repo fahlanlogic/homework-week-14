@@ -1,22 +1,63 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
-import { signUp } from "../api/sign-up/route";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Register() {
-  const [state, action] = useFormState(signUp, undefined);
-  const { pending } = useFormStatus();
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/sign-up", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (data.status === 409) throw new Error("User already exist");
+      if (data.status === 400)
+        throw new Error(
+          "Bad Request, email and password fields cannot be empty"
+        );
+      toast.success("Sign Up Succesfully");
+      router.push("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   return (
     <main className="flex flex-col min-h-screen items-center justify-center p-24">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <h1 className="pb-10 text-3xl font-bold">Sign Up</h1>
       <form
-        action={action}
+        onSubmit={handleSubmit}
         className="flex flex-col gap-5">
         <input
           type="text"
           id="name"
           name="name"
+          onChange={handleChange}
           placeholder="Full Name"
           className="px-2 py-1 rounded-md bg-black placeholder:text-white border border-slate-500 focus:outline-none focus:border-black placeholder:opacity-50"
         />
@@ -24,6 +65,7 @@ export default function Register() {
           type="email"
           id="email"
           name="email"
+          onChange={handleChange}
           placeholder="Email"
           className="px-2 py-1 rounded-md bg-black placeholder:text-white border border-slate-500 focus:outline-none focus:border-black placeholder:opacity-50"
         />
@@ -31,14 +73,14 @@ export default function Register() {
           type="password"
           id="password"
           name="password"
+          onChange={handleChange}
           placeholder="********"
           className="px-2 py-1 rounded-md bg-black placeholder:text-white border border-slate-500 focus:outline-none focus:border-black placeholder:opacity-50"
         />
         <button
           type="submit"
-          aria-disabled={pending}
           className="w-full bg-gradient-to-b from-yellow-500 to-yellow-600 py-2 rounded-md font-bold text-black hover:opacity-75 duration-300">
-          {pending ? "Submitting..." : "Sign Up"}
+          Sign Up
         </button>
       </form>
     </main>
