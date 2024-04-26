@@ -25,11 +25,9 @@ export default function Register() {
       const data = await res.json();
       if (data.status === 409) throw new Error("User already exist");
       if (data.status === 400)
-        throw new Error(
-          "Bad Request, email and password fields cannot be empty"
-        );
+        throw new Error("Email and password fields cannot be empty");
       toast.success("Sign Up Succesfully");
-      router.push("/");
+      router.push("/sign-in");
     } catch (error) {
       toast.error(error.message);
     }
@@ -66,6 +64,7 @@ export default function Register() {
           id="email"
           name="email"
           onChange={handleChange}
+          required
           placeholder="Email"
           className="px-2 py-1 rounded-md bg-black placeholder:text-white border border-slate-500 focus:outline-none focus:border-black placeholder:opacity-50"
         />
@@ -75,6 +74,7 @@ export default function Register() {
           name="password"
           onChange={handleChange}
           placeholder="********"
+          required
           className="px-2 py-1 rounded-md bg-black placeholder:text-white border border-slate-500 focus:outline-none focus:border-black placeholder:opacity-50"
         />
         <button

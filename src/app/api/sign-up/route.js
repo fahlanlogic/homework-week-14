@@ -18,15 +18,13 @@ export async function POST(request) {
       },
     });
     return NextResponse.json({
+      status: 200,
       message: "Sign Up Succesfully",
     });
   } catch (error) {
     if (error.name === "BadRequest") {
-      return NextResponse.json({ status: 400, message: "Bad Request" });
+      return NextResponse.json({ status: 400,message: "Bad Request" });
     }
-    return NextResponse.json({
-      status: 409,
-      message: "User already exist",
-    });
+    return NextResponse.json({ status: 409, message: "User already exist" });
   }
 }
