@@ -4,28 +4,29 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PiBooksFill } from "react-icons/pi";
 import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
 
 export default function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
+  const [cookies, setCookies, removeCookie] = useCookies(["access_token"]);
   const route = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    if (cookies.access_token) {
       setIsLogin(true);
     }
-  }, [isLogin]);
+  }, [cookies]);
 
   const handleLogOut = () => {
     location.reload();
-    window.localStorage.removeItem("token");
+    removeCookie("access_token");
     setIsLogin(false);
     route.push("/");
   };
 
   return (
-    <nav className="fixed w-full z-20 top-0 start-0">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-2 px-4">
+    <nav className="bg-black fixed w-full z-20 top-0 start-0">
+      <div className="max-w-6xl mx-auto xl:px-0 flex flex-wrap items-center justify-between py-2 px-4">
         <Link
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse">

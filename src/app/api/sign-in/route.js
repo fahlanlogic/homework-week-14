@@ -34,7 +34,6 @@ export async function POST(request) {
         value: accessToken,
         maxAge: 60 * 60 * 24 * 7,
       });
-
       return NextResponse.json({
         message: "Sign In Succesfully",
         accessToken,
