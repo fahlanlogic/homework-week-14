@@ -1,18 +1,17 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 
 export default function BookCard({ books }) {
-  const { title, author, publisher, year, pages, images } = books;
+  const { title, author, publisher, year, pages, image } = books;
   return (
-    <div className="w-full p-4 flex flex-col xl:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full p-4 flex flex-col xl:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 gap-4">
       <div className="flex flex-col flex-auto">
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-sm text-slate-400">{author}</p>
       </div>
-      <Image
-        src={images}
-        alt={title}
-        width={200}
-        height={200}
+      <img
+        src={image}
+        alt=""
+        className="w-full h-64 object-cover rounded-md "
       />
       <div className="pb-4">
         <p className="text-sm text-slate-400">
