@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function BookForm() {
+export default function BookForm({ bookData }) {
+  const { id } = useParams();
   const router = useRouter();
   const [imageUrl, setImageUrl] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -15,7 +16,7 @@ export default function BookForm() {
     pages: "",
     image: "",
   });
-  console.log(formData);
+  console.log(bookData);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -95,6 +96,7 @@ export default function BookForm() {
                 className="border px-3 py-2 rounded-lg bg-black border-slate-400 focus:border-black focus:outline-none"
                 onChange={handleChange}
                 required
+                defaultValue={bookData?.title}
               />
             </div>
             <div className="formControl flex flex-col text-left gap-1">
@@ -107,6 +109,7 @@ export default function BookForm() {
                 className="border px-3 py-2 rounded-lg bg-black border-slate-400 focus:border-black focus:outline-none"
                 onChange={handleChange}
                 required
+                defaultValue={bookData?.author}
               />
             </div>
             <div className="formControl flex flex-col text-left gap-1">
@@ -119,6 +122,7 @@ export default function BookForm() {
                 className="border px-3 py-2 rounded-lg bg-black border-slate-400 focus:border-black focus:outline-none"
                 onChange={handleChange}
                 required
+                defaultValue={bookData?.publisher}
               />
             </div>
             <div className="formControl flex flex-col text-left gap-1">
@@ -131,6 +135,7 @@ export default function BookForm() {
                 className="border px-3 py-2 rounded-lg bg-black border-slate-400 focus:border-black focus:outline-none"
                 onChange={handleChange}
                 required
+                defaultValue={bookData?.year}
               />
             </div>
             <div className="formControl flex flex-col text-left gap-1 w-full">
@@ -142,6 +147,7 @@ export default function BookForm() {
                 name="pages"
                 className="border px-3 py-2 rounded-lg bg-black border-slate-400 focus:border-black focus:outline-none"
                 onChange={handleChange}
+                defaultValue={bookData?.pages}
               />
             </div>
           </div>
@@ -169,7 +175,7 @@ export default function BookForm() {
             <button
               className="bg-gradient-to-b from-yellow-500 to-yellow-600 text-black shadow-lg rounded-md p-2 font-semibold w-full hover:opacity-90 duration-300 disabled:bg-pink-300"
               type="submit">
-              Create Book
+              {bookData ? "Edit Book" : "Create Book"}
             </button>
           </div>
         </div>

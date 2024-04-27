@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
+import Link from "next/link";
+
 export default function BookCard({ books }) {
   const { title, author, publisher, year, pages, image } = books;
   return (
@@ -25,9 +27,13 @@ export default function BookCard({ books }) {
         </p>
       </div>
       <div className="flex w-full gap-2">
-        <button className="text-sm font-bold py-1 hover:opacity-80 duration-300 bg-gradient-to-b from-yellow-500 to-yellow-600 w-full rounded-md">
-          Edit
-        </button>
+        <Link
+          href={`/editbook/${books.id}`}
+          className="w-full">
+          <button className="text-sm font-bold py-1 hover:opacity-80 duration-300 bg-gradient-to-b from-yellow-500 to-yellow-600 w-full rounded-md">
+            Edit
+          </button>
+        </Link>
         <button className="text-sm font-bold py-1 hover:opacity-80 duration-300 bg-gradient-to-b from-red-500 to-red-600 w-full rounded-md">
           Delete
         </button>
