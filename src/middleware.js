@@ -16,7 +16,7 @@ export function middleware(request) {
 
 export const config = {
   matcher: [
-    "/login",
+    "/sign-in",
     "/api/:function*",
     "/newbook/:function*",
     "/editbook/:function*",
