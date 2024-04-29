@@ -1,4 +1,4 @@
-import BookForm from "@/app/components/BookForm";
+import BookForm from "@/components/BookForm";
 
 export default function NewBook() {
   return (

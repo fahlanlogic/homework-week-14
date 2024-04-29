@@ -1,4 +1,4 @@
-import BookCard from "./components/BookCard";
+import BookCard from "../components/BookCard";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 

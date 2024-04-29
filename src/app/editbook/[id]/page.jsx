@@ -1,6 +1,6 @@
 "use client";
 
-import BookForm from "@/app/components/BookForm";
+import BookForm from "@/components/BookForm";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -11,11 +11,11 @@ export default function EditBook() {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const res = await fetch(`/api/books/${id}`, {
+        const res = await fetch(`http://localhost:3000/api/books/${id}`, {
           method: "GET",
         });
-        console.log(res);
-        setBook(res);
+        const data = await res.json();
+        setBook(data);
       } catch (e) {
         console.log(e);
       }

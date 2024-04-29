@@ -4,8 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(request, { params }) {
   try {
     const { id } = params;
-    console.log(id);
-    const book = await prisma.book.findUnique({
+    const book = await prisma.book.findFirst({
       where: {
         id: +id,
       },
@@ -23,12 +22,17 @@ export async function PATCH(request, { params }) {
   try {
     const { id } = params;
     const body = await request.json();
+    const { title, author, publisher, year, pages } = body;
     const book = await prisma.book.update({
       where: {
         id: +id,
       },
       data: {
-        ...body,
+        title,
+        author,
+        publisher,
+        year: +year,
+        pages: +pages,
       },
     });
     return NextResponse.json({ message: "Book edited", book });
