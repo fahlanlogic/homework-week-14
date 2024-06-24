@@ -30,7 +30,6 @@ export default function BookForm({ bookData }) {
           },
         });
         const data = await res.json();
-        console.log(data);
         toast.success("Book updated successfully");
         return data;
       } catch (error) {
@@ -48,7 +47,6 @@ export default function BookForm({ bookData }) {
         },
       });
       const data = await res.json();
-      console.log(data);
       toast.success("Book Created");
       router.push("/");
       return data;
@@ -75,7 +73,6 @@ export default function BookForm({ bookData }) {
           image: data.image_url,
         });
       }
-      console.log(data);
       return data;
     } catch (error) {}
   };
@@ -97,7 +94,7 @@ export default function BookForm({ bookData }) {
       await new Promise(resolve => setTimeout(resolve, 1500));
       router.push("/");
     } catch (e) {
-      console.log(e);
+      throw e;
     }
   };
 
