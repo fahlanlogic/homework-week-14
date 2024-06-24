@@ -16,14 +16,18 @@ export default async function Home() {
 
   return (
     <main className="mx-auto max-w-6xl flex min-h-screen items-center justify-center pt-20 p-4 xl:px-0">
-      <div className="grid mx-auto w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {books.map(book => (
-          <BookCard
-            key={book.id}
-            books={book}
-          />
-        ))}
-      </div>
+      {books.length > 0 ? (
+        <div className="grid mx-auto w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {books.map(book => (
+            <BookCard
+              key={book.id}
+              books={book}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>No books found</p>
+      )}
     </main>
   );
 }
