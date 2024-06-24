@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  const loginPath = ["/sign-in", "/api/sign-in"];
+  const loginPath = ["/sign-in", "/api/sign-in", "/api/sign-up"];
   if (loginPath.some(v => v === request.nextUrl.pathname)) {
     return NextResponse.next();
   } else {
