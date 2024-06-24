@@ -17,7 +17,7 @@ export default function BookCard({ books }) {
   }, [cookies]);
 
   return (
-    <div className="w-full p-4 flex flex-col xl:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 gap-4">
+    <div className="w-full p-4 flex flex-col xl:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-neutral-900 dark:border-neutral-700 gap-4">
       <div className="flex flex-col flex-auto">
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-sm text-slate-400">{author}</p>
@@ -43,7 +43,7 @@ export default function BookCard({ books }) {
           <Link
             href={`/editbook/${books.id}`}
             className="w-full">
-            <button className="text-sm font-bold py-1 hover:opacity-80 duration-300 bg-gradient-to-b from-yellow-500 to-yellow-600 w-full rounded-md">
+            <button className="text-sm text-black font-bold py-1 hover:opacity-80 duration-300 bg-gradient-to-b from-yellow-500 to-yellow-600 w-full rounded-md">
               Edit
             </button>
           </Link>
